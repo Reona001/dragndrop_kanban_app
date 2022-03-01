@@ -8,9 +8,22 @@ import Turbolinks from "turbolinks"
 import * as ActiveStorage from "@rails/activestorage"
 import "channels"
 
+
 Rails.start()
 Turbolinks.start()
 ActiveStorage.start()
 
 import "controllers"
 import "bootstrap"
+
+// The syntax for import {} must be respected or else sortable does not work.
+import { initKanbanSortable } from "plugins/initSortable"
+
+
+
+document.addEventListener('turbolinks:load', () => {
+  const kanbanUls = document.querySelectorAll(".kanban .kanban-col");
+  if (kanbanUls) {
+    initKanbanSortable(kanbanUls);
+  }
+});
