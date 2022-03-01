@@ -18,20 +18,21 @@ class KanbansController < ApplicationController
   end
 
   def sort
+
   # Get the new col sort
-      sorted_cols = JSON.parse(kanban_params["kanbanIds"])["columns"]
-      sorted_cols.each do |col|
-        # Look at each of its cards
-        col["itemIds"].each do |card_id|
-          # Find the card if in the DB and
-          # update its column and position within the column
-          Card.find(card_id).update(
-            kanban_column: KanbanColumn.find(col["id"]),
-            position: col["itemIds"].find_index(card_id)
-          )
-        end
+    sorted_cols = JSON.parse(kanban_params["kanbanIds"])["columns"]
+    sorted_cols.each do |col|
+      # Look at each of its cards
+      col["itemIds"].each do |card_id|
+      # Find the card if in the DB and
+      # update its column and position within the column
+      Card.find(card_id).update(
+        kanban_column: KanbanColumn.find(col["id"]),
+        position: col["itemIds"].find_index(card_id)
+        )
       end
     end
+  end
 
 
   # GET /kanbans/1/edit

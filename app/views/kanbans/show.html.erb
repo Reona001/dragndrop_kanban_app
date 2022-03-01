@@ -15,9 +15,10 @@
   <%= @kanban.cards %>
 </p>
 
+
+
 <%= link_to 'Edit', edit_kanban_path(@kanban) %> |
 <%= link_to 'Back', kanbans_path %>
-
 <div class="kanban" data-id="<%= @kanban.id %>">
   <% @kanban.kanban_columns.each do |column| %>
     <ul class="kanban-col" data-col-id=<%= column.id %> >
@@ -32,18 +33,24 @@
 </div>
 
 
+
 <%= form_with url: kanban_sort_path, method: :patch do |f|%>
   <%= f.text_field 'kanban[kanbanIds]', class: "kanban-form-input" %>
   <%= f.submit "Saved changes" %>
 <% end %>
 
+
+<%
+=begin %>
 <div class="kanban">
-  <% @kanban.kanban_columns.each do |column| %>
+  <% @kanban.cards["columns"].each do |column| %>
     <ul class="kanban-col">
       <li class="kanban-col-name"><%= column["name"] %></li>
-      <% column.cards do |item| %>
+      <% column["items"].each do |item| %>
         <li class="kanban-col-item"><%= item %></li>
       <% end %>
     </ul>
   <% end %>
 </div>
+<%
+=end %>
